@@ -32,7 +32,7 @@ function App() {
 
 
     const handleClick = async()=>{
-        const data = await axios.get(`http://localhost:3000/dealers?Name=${name}`);
+        const data = await axios.get(`http://localhost:3000/map?Name=${name}`);
 
         if(data){
           if( data.data[0].Password === pass){
@@ -54,7 +54,7 @@ function App() {
     }
 
   const {isLoaded} = useLoadScript({                                 //checks if completely loaded or not
-    googleMapsApiKey:'YOUR API KEY HERE',     //API key
+    googleMapsApiKey:'AIzaSyCY1oDgXTf55jiJBGLsiTsCgf9DyrlU66E',     //API key
     libraries:libraries
   })
 

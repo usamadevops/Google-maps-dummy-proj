@@ -42,7 +42,8 @@ const handlePolygonCoords = (e)=>{
 
 const handleSignUp = async()=>{
     if(polygonCords.length >2 && name.length>0 && pass.length>0){
-        const data = await axios.post('http://localhost:3000/dealers',{Name:name,Password:pass,StorePolygons:polygonCords});
+      await axios.post('http://localhost:3000/map',{Name:name,Password:pass,coords:polygonCords});
+    
 
     }
     else if(polygonCords.length<2){
@@ -67,27 +68,175 @@ const handleSignUp = async()=>{
     <input type={'password'} value={pass} placeholder='Enter your Password here ...' onChange={(e)=>{setPass(e.target.value)}} />
     <button onClick={handleSignUp}>Signup</button></div>
     <div className="map">
-
-
             <GoogleMap
             zoom={10} 
             center={center}
-            mapContainerStyle={{marginTop:30,width:'100vw',height:'70vh'}}
+            key={'AIzaSyCx7ATXG5yvaWxWAgZmXjqWgVzUyJb8ffg'}
+            mapContainerStyle={{marginTop:30,width:'100vw',height:'93vh'}}
             options={options}
             onLoad={onLoad}
             onClick={handlePolygonCoords}
             >   
                 {polygonCords.length>=2 && <Polygon paths={polygonCords} 
-            
-                options={{
-                    strokeColor: "#FF0000",
-                    // strokeOpacity: 0.8,
-                    // strokeWeight: 2,
-                    // fillColor: "#FF0000",
-                    fillOpacity: 0
+                options={
+                    [
+                        {
+                            "featureType": "all",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "saturation": "32"
+                                },
+                                {
+                                    "lightness": "-3"
+                                },
+                                {
+                                    "visibility": "on"
+                                },
+                                {
+                                    "weight": "1.18"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "labels",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative.neighborhood",
+                            "elementType": "labels.text",
+                            "stylers": [
+                                {
+                                    "visibility": "on"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative.neighborhood",
+                            "elementType": "labels.text.fill",
+                            "stylers": [
+                                {
+                                    "visibility": "on"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative.neighborhood",
+                            "elementType": "labels.text.stroke",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative.neighborhood",
+                            "elementType": "labels.icon",
+                            "stylers": [
+                                {
+                                    "visibility": "on"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "visibility": "simplified"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape",
+                            "elementType": "labels",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape.man_made",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "saturation": "-70"
+                                },
+                                {
+                                    "lightness": "14"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape.natural",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "labels",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road",
+                            "elementType": "labels",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "transit",
+                            "elementType": "labels",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "water",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "saturation": "100"
+                                },
+                                {
+                                    "lightness": "-14"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "water",
+                            "elementType": "labels",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                },
+                                {
+                                    "lightness": "12"
+                                }
+                            ]
+                        }
+                    ]
                 
-                    
-                }} />}
+                  
+                } />}
              
             </GoogleMap>
         </div>
