@@ -2,11 +2,7 @@ import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import {
     GoogleMap,
     Marker,
-    DirectionsRenderer,
-    Circle,
     Polygon,
-    MarkerClusterer,
-    computeOffset
 } from '@react-google-maps/api';
 import axios from 'axios';
 
@@ -80,7 +76,7 @@ const handlecarCoords = (e)=>{
                 {delalersLocation &&
                     <GoogleMap
                         zoom={24}
-                        key={'AIzaSyCx7ATXG5yvaWxWAgZmXjqWgVzUyJb8ffg'}
+                        key={'Your API KEY'}
                         center={delalersLocation}
                         mapContainerStyle={{ width: '100vw', height: '90vh' }}
                         options={options}

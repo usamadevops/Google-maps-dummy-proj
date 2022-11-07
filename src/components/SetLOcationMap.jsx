@@ -71,7 +71,7 @@ const handleSignUp = async()=>{
             <GoogleMap
             zoom={10} 
             center={center}
-            key={'AIzaSyCx7ATXG5yvaWxWAgZmXjqWgVzUyJb8ffg'}
+            key={'Your API KEY'}
             mapContainerStyle={{marginTop:30,width:'100vw',height:'93vh'}}
             options={options}
             onLoad={onLoad}
