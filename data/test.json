@@ -1,0 +1,33 @@
+{
+    "map": [
+        {
+            "map_naame": "Map1",
+            "map_coords()": [],
+            "parking_lots": [
+                {
+                    "parking_name": "Parking1",
+                    "parking_coords": [],
+                    "zones": [
+                        {
+                            "zone_name": "Zone A",
+                            "zone_coords": [],
+                            "rows": [
+                                {
+                                    "rows_name": "Row 1",
+                                    "rows_coords": [],
+                                    "slots": [
+                                        {
+                                            "spacing_number": "1",
+                                            "slot_id": "1",
+                                            "slot_coords()": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+        ]
+}

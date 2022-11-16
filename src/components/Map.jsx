@@ -85,7 +85,7 @@ const Map = ({ data }) => {
     const onLoad = useCallback(map => (mapRef.current = map), []);
     const handleSubmitCars = async (e) => {
 
-        const data1 = await axios.patch(`${DB_URL}/${data.id}`, { "parkings_lots": cars , "buildings": buildings});
+        const data1 = await axios.patch(`${DB_URL}/${data.id}`, { "slot_coords": cars });
         //const data2 = await axios.patch(`${DB_URL}/${data.id}`, { "buildings": buildings });
         if (data1) {
             alert('Cars sucessfully added!');
@@ -120,7 +120,7 @@ const Map = ({ data }) => {
                                 handleClose()
                                 let brand = prompt("Please enter your car's brand", "BMW");
                                 if (brand) {
-                                    setCars(cars => [...cars, { carId: Math.random(), Brand: brand, parking_coords: addCar }]);
+                                    setCars(cars => [...cars, {addCar} ]);
                                     alert('Car Added', cars.length);
                                     setaddCar([]);
                                 }
@@ -167,8 +167,8 @@ const Map = ({ data }) => {
                             }
                             {
                                 cars && cars.map(item =>
-                                    <Polygon paths={item?.parking_coords}
-                                        key={item?.parking_coords.lat}
+                                    <Polygon paths={item?.parkings_lots?.zones?.rows?.slots?.slot_coords}
+                                        key={item?.parkings_lots?.zones?.rows?.slots?.slot_coords}
                                         label={"Car"}
                                         options={{
                                             strokeColor: "#FF0000",

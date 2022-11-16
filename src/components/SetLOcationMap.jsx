@@ -35,7 +35,6 @@ const SetLocationMap = () => {
     const mapRef = useRef(); //mapRef: <GoogleMap>
     const [coords, setCoords] = useState([]);
     const [open, setOpen] = useState(false);
-    const [dealerId,setDealerId] = useState("7c03d881-0272-4c6f-a127-c9b476757391");
 
 
     const onLoad = useCallback(map => (mapRef.current = map), []);
@@ -77,7 +76,29 @@ const SetLocationMap = () => {
         if (polygonCords.length > 4 && name.length > 0) {
             //setPolygonCords([coords]);
 
-            await axios.post('http://localhost:3000/map', { map_name: name, map_coords: polygonCords, parkings_lots: [], });
+            await axios.post('http://localhost:3000/map', { map_name: name, map_coords: polygonCords, parkings_lots: [{
+                "parking_name": "Parking1",
+                "parking_coords": [],
+                "zones": [
+                    {
+                        "zone_name": "Zone A",
+                        "zone_coords": [],
+                        "rows": [
+                            {
+                                "rows_name": "Row 1",
+                                "rows_coords": [],
+                                "slots": [
+                                    {
+                                        "spacing_number": "1",
+                                        "slot_id": "1",
+                                        "slot_coords": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }] });
             console.log(coords)
             console.log(polygonCords);
             window.location.reload();
