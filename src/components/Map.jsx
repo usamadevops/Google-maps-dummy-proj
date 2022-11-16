@@ -61,18 +61,21 @@ const Map = ({ data }) => {
             setaddCar(addCar => [...addCar, { lat: e.latLng.lat(), lng: e.latLng.lng() }]);
         if (addCar.length === 4) {
             setOpen(true);
+            setaddCar(addCar => [...addCar, { lat: addCar[0].lat, lng: addCar[0].lng }]);
+
         }
     }
 
     const getCars = async () => {
         const data1 = await axios.get(`${DB_URL}/${data.id}`);
-        setCars(data1?.data?.cars);
+        setCars(data1?.data?.parkings_lots);
         setBuildings(data1?.data?.buildings);
     }
     useEffect(() => {
-        setDealersLocation(() => get_polygon_centroid(data.coords));
-        data.cars && setMarkers(data.cars);
-        setPolygonCords(data.coords);
+        console.log(data?.data);
+        setDealersLocation(() => get_polygon_centroid(data.map_coords));
+        data.parkings_lots && setMarkers(data.parkings_lots);
+        setPolygonCords(data.map_coords);
     }, [])
 
     useEffect(() => {
@@ -82,8 +85,7 @@ const Map = ({ data }) => {
     const onLoad = useCallback(map => (mapRef.current = map), []);
     const handleSubmitCars = async (e) => {
 
-        console.log(buildings);
-        const data1 = await axios.patch(`${DB_URL}/${data.id}`, { "cars": cars , "buildings": buildings});
+        const data1 = await axios.patch(`${DB_URL}/${data.id}`, { "parkings_lots": cars , "buildings": buildings});
         //const data2 = await axios.patch(`${DB_URL}/${data.id}`, { "buildings": buildings });
         if (data1) {
             alert('Cars sucessfully added!');
@@ -118,7 +120,7 @@ const Map = ({ data }) => {
                                 handleClose()
                                 let brand = prompt("Please enter your car's brand", "BMW");
                                 if (brand) {
-                                    setCars(cars => [...cars, { carId: Math.random(), Brand: brand, location: addCar }]);
+                                    setCars(cars => [...cars, { carId: Math.random(), Brand: brand, parking_coords: addCar }]);
                                     alert('Car Added', cars.length);
                                     setaddCar([]);
                                 }
@@ -165,8 +167,8 @@ const Map = ({ data }) => {
                             }
                             {
                                 cars && cars.map(item =>
-                                    <Polygon paths={item?.location}
-                                        key={item?.location.lat}
+                                    <Polygon paths={item?.parking_coords}
+                                        key={item?.parking_coords.lat}
                                         label={"Car"}
                                         options={{
                                             strokeColor: "#FF0000",

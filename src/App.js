@@ -16,8 +16,6 @@ const libraries = ['places','geometry']
 *
 */
 
-
-
 function App() {
   const [name, setName] = useState('');
   const [pass, setPass] = useState('');
@@ -32,10 +30,11 @@ function App() {
 
 
     const handleClick = async()=>{
-        const data = await axios.get(`http://localhost:3000/map?Name=${name}`);
+        const data = await axios.get(`http://localhost:3000/map?map_name=${name}`);
+        //console.log(data.data[0].map_name);
 
         if(data){
-          if( data.data[0].Password === pass){
+          if( data?.data[0]?.map_name === name){
             setData(data.data[0]);
             setLogin(false);
             setLoggedIn(true);
@@ -54,13 +53,13 @@ function App() {
     }
 
   const {isLoaded} = useLoadScript({                                 //checks if completely loaded or not
-    googleMapsApiKey:'AIzaSyCY1oDgXTf55jiJBGLsiTsCgf9DyrlU66E',     //API key
+    googleMapsApiKey:'AIzaSyBwT3hoRXWU1UkYIBK5Mm_tdpdRb30YC0Y',     //API key
     libraries:libraries
   })
 
   if(login){
     return <><input type={'text'} value={name} placeholder='Enter your Name here ...' onChange={(e)=>{setName(e.target.value)}} />
-    <input type={'password'} value={pass} placeholder='Enter your Password here ...' onChange={(e)=>{setPass(e.target.value)}} />
+    {/* <input type={'password'} value={pass} placeholder='Enter your Password here ...' onChange={(e)=>{setPass(e.target.value)}} /> */}
     <button onClick={handleClick}>Submit</button>
     <button onClick={handleSignUpClick}>SignUp</button></>
   }
