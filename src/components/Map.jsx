@@ -29,7 +29,7 @@ function get_polygon_centroid(pts) {
 
 
 
-const Map = ({ data }) => {
+const Map = ({ data, setData }) => {
     const [addCar, setaddCar] = useState([]);
     const [cars, setCars] = useState([]);
     const [buildings, setBuildings] = useState([]);
@@ -57,6 +57,7 @@ const Map = ({ data }) => {
     };
 
     const handlecarCoords = (e) => {
+        
         if (addCar.length !== 4)
             setaddCar(addCar => [...addCar, { lat: e.latLng.lat(), lng: e.latLng.lng() }]);
         if (addCar.length === 4) {
@@ -84,15 +85,51 @@ const Map = ({ data }) => {
 
     const onLoad = useCallback(map => (mapRef.current = map), []);
     const handleSubmitCars = async (e) => {
+        console.log("slots: ", data.parkings_lots[0].zones[0].rows[0].slots)
+        var check = {
+                "map_name": data?.map_name,
+                "map_coords":
+                    data?.map_coords,
+                "parkings_lots": [
+                    {
+                    "parking_name": "Parking1",
+                    "parking_coords": [],
+                    "zones": [
+                        {
+                            "zone_name": "Zone A",
+                            "zone_coords": [],
+                            "rows": [
+                                {
+                                    "rows_name": "Row 1",
+                                    "rows_coords": [],
+                                    "slots": [...data?.parkings_lots?.[0]?.zones?.[0]?.rows?.[0]?.slots, 
+                                        {
+                                            "spacing_number": "1",
+                                            "slot_id": "1",
+                                            "slot_coords": addCar
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }], "id": data?.id
+            }
 
-        const data1 = await axios.patch(`${DB_URL}/${data.id}`, { "slot_coords": cars });
-        //const data2 = await axios.patch(`${DB_URL}/${data.id}`, { "buildings": buildings });
+        console.log("data: ", data)
+        console.log("check: ", check)
+
+        const data1 = await axios.put(`${DB_URL}/${data.id}`, check);
+        // const data2 = await axios.patch(`${DB_URL}/${data.id}`, { "buildings": buildings });
         if (data1) {
             alert('Cars sucessfully added!');
+            setData(check)
         }
         else {
             alert('Some Error Occured!');
         }
+        
+        setaddCar([]);
     }
 
 
@@ -122,7 +159,7 @@ const Map = ({ data }) => {
                                 if (brand) {
                                     setCars(cars => [...cars, {addCar} ]);
                                     alert('Car Added', cars.length);
-                                    setaddCar([]);
+                                    // setaddCar([]);
                                 }
                             }}>Car</button>
                             <button onClick={() => {
@@ -132,7 +169,7 @@ const Map = ({ data }) => {
                                     setBuildings(buildings => [...buildings, { buildingId: Math.random(), Name: name, location: addCar }]);
                                     alert('Building Added', buildings.length);
                                     console.log(addCar)
-                                    setaddCar([]);
+                                    // setaddCar([]);
                                     console.log(buildings);
                                 }
                             }}>Building</button>

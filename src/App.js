@@ -34,7 +34,7 @@ function App() {
         //console.log(data.data[0].map_name);
 
         if(data){
-          if( data?.data[0]?.map_name === name){
+          if( data?.data[0]?.map_name === name) {
             setData(data.data[0]);
             setLogin(false);
             setLoggedIn(true);
@@ -70,7 +70,7 @@ function App() {
   }
   else if(loggedIn && !login){
   if(!isLoaded) return <div>Loading ...</div>                       //if not is loaded returns a text Loading ....
-  return <Map data={propdata}/>                                                    //if yes then returns  the GOOGLE MAP
+  return <Map data={propdata} setData={setData}/>                                                    //if yes then returns  the GOOGLE MAP
   }
 }
 

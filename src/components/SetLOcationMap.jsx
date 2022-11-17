@@ -87,13 +87,7 @@ const SetLocationMap = () => {
                             {
                                 "rows_name": "Row 1",
                                 "rows_coords": [],
-                                "slots": [
-                                    {
-                                        "spacing_number": "1",
-                                        "slot_id": "1",
-                                        "slot_coords": []
-                                    }
-                                ]
+                                "slots": [ ]
                             }
                         ]
                     }
